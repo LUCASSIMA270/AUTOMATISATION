@@ -1,0 +1,151 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.mistral.ai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer VySk8HlLe60DsLvhijrgs2Pj7G6Ep45j"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n{\n  \"model\": \"mistral-small-latest\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Tu es l'application MEMO. Rédige en Français. Ton style est immersif et journalistique. Réponds UNIQUEMENT en JSON.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Rédige une anecdote historique pour le \" + $now.format('dd MMMM') + \". \\n\\nSTRUCTURE JSON OBLIGATOIRE :\\n{\\n  \\\"titre\\\": \\\"...\\\",\\n  \\\"p1\\\": \\\"1er paragraphe (HTML <p>)\\\",\\n  \\\"p2\\\": \\\"2ème paragraphe (HTML <p>)\\\",\\n  \\\"p3\\\": \\\"3ème paragraphe (HTML <p>)\\\",\\n  \\\"keywords\\\": \\\"3 mots-clés anglais séparés par des virgules illustrant les 3 phases de l'histoire\\\",\\n  \\\"conclusion\\\": \\\"Conclusion (HTML <i>)\\\"\\n}\"\n    }\n  ],\n  \"response_format\": { \"type\": \"json_object\" },\n  \"temperature\": 0.7\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        752,
+        224
+      ],
+      "id": "b6d2140d-974e-4009-a096-72d3a90bcd4a",
+      "name": "SITE INTERNET ANECDOTE"
+    },
+    {
+      "parameters": {
+        "sendTo": "lucassimatovic@gmail.com, simatovicyves@gmail.com, simatovicjoanna@gmail.com, lucas.simatovic@gmail.com",
+        "subject": "={{ \"💡 MÉMO : \" + JSON.parse($('SITE INTERNET ANECDOTE').item.json.choices[0].message.content).titre }}",
+        "message": "={{\n(() => {\n  // 1. On récupère les données des nœuds parents\n  const nodeMistral = $('SITE INTERNET ANECDOTE');\n  const nodePexels = $('PEXELS');\n\n  // 2. On parse le contenu de Mistral\n  const memo = JSON.parse(nodeMistral.item.json.choices[0].message.content);\n  \n  // 3. On récupère la liste des photos\n  const photos = nodePexels.item.json.photos;\n\n  // Petite sécurité pour les images (si Pexels en manque une)\n  const getImg = (i) => photos[i] ? photos[i].src.large : 'https://via.placeholder.com/600x300?text=MEMO+Image';\n\n  return `\n<div style=\"background-color: #f4f7f9; padding: 40px 10px; font-family: 'Georgia', serif;\">\n  <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);\">\n    \n    <img src=\"${getImg(0)}\" style=\"width: 100%; height: auto; display: block; border-bottom: 4px solid #6366f1;\">\n    \n    <div style=\"padding: 30px;\">\n      <h1 style=\"color: #1e293b; font-size: 26px; margin-top: 0; line-height: 1.2;\">${memo.titre}</h1>\n      \n      <div style=\"color: #334155; line-height: 1.7; font-size: 16px;\">\n        ${memo.p1}\n      </div>\n\n      <img src=\"${getImg(1)}\" style=\"width: 100%; border-radius: 12px; margin: 20px 0;\">\n\n      <div style=\"color: #334155; line-height: 1.7; font-size: 16px;\">\n        ${memo.p2}\n      </div>\n\n      <img src=\"${getImg(2)}\" style=\"width: 100%; border-radius: 12px; margin: 20px 0;\">\n\n      <div style=\"color: #334155; line-height: 1.7; font-size: 16px;\">\n        ${memo.p3}\n      </div>\n\n      <p style=\"text-align: center; color: #64748b; font-style: italic; margin-top: 30px; border-top: 1px solid #f1f5f9; padding-top: 20px;\">\n        ${memo.conclusion}\n      </p>\n      \n      <div style=\"margin-top: 40px; padding-top: 20px; border-top: 2px solid #6366f1; text-align: center;\">\n        <p style=\"color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin: 0;\">\n          Intelligence Économique • Master 2 • Lucas Simatovic\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n  `;\n})()\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        464
+      ],
+      "id": "90492ccd-5756-4f0d-8ee2-ac14706c777f",
+      "name": "Send a message3",
+      "webhookId": "e006c9ce-e522-42fc-8d12-ac8e48e8d95f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "miuoIf38NelRqHPT",
+          "name": "Gmail account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        16
+      ],
+      "id": "0627c0ef-e30c-46b1-b757-824efe1d2611",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.pexels.com/v1/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ JSON.parse($node[\"SITE INTERNET ANECDOTE\"].json.choices[0].message.content).keywords }}"
+            },
+            {
+              "name": "per_page",
+              "value": "3"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        928,
+        224
+      ],
+      "id": "10a75309-f0f6-43d3-b0db-9ea703c931fc",
+      "name": "PEXELS",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "FuRjBgyi7mG2kbgJ",
+          "name": "Header Auth account 3"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "SITE INTERNET ANECDOTE": {
+      "main": [
+        [
+          {
+            "node": "PEXELS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "SITE INTERNET ANECDOTE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PEXELS": {
+      "main": [
+        [
+          {
+            "node": "Send a message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "e4be78d2ceba5c58303e2a203656240aed7b1036313061af389c6eabaf166742"
+  }
+}
