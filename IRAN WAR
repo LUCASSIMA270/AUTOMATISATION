@@ -1,0 +1,686 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 5 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "04b157fd-66be-481f-bf35-a8086313d3f8",
+      "name": "⏰ Déclencheur Quotidien 6h00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        1520
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com+world+middle+east&ceid=US:en&hl=en-US&gl=US",
+        "options": {}
+      },
+      "id": "12f3073a-3c1b-4961-ac32-96eb99d1dfc3",
+      "name": "RSS — Reuters Monde",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com+business+energy+oil&ceid=US:en&hl=en-US&gl=US",
+        "options": {}
+      },
+      "id": "9eacd7fa-5707-46d5-8e1c-2984823eece4",
+      "name": "RSS — Reuters Business",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        32,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://feeds.bbci.co.uk/news/world/middle_east/rss.xml",
+        "options": {}
+      },
+      "id": "4deacf3f-1a58-4166-9611-56586cf4fa9f",
+      "name": "RSS — BBC Moyen-Orient",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        272,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.aljazeera.com/xml/rss/all.xml",
+        "options": {}
+      },
+      "id": "908bc28c-65f0-4020-a7cc-a19d48d40f71",
+      "name": "RSS — Al Jazeera",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        512,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://oilprice.com/rss/main",
+        "options": {}
+      },
+      "id": "282f12c2-f707-4c4c-8279-15d46207b8b4",
+      "name": "RSS — OilPrice.com",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        752,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml",
+        "options": {}
+      },
+      "id": "7c176eb3-92e8-4bdc-aaf9-b6e20c289481",
+      "name": "RSS — Defense News",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        992,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.dawn.com/feeds/home",
+        "options": {}
+      },
+      "id": "fcc05262-a277-412b-a79f-f1f3bca44c9f",
+      "name": "RSS — Dawn Pakistan",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=when:24h+allinurl:middleeasteye.net&ceid=US:en&hl=en-US&gl=US",
+        "options": {}
+      },
+      "id": "6f566353-e892-4882-b2a0-9d0a57f5abed",
+      "name": "RSS — Middle East Eye",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/CL=F?interval=1d&range=5d",
+        "options": {}
+      },
+      "id": "3f86c271-0029-4a56-8324-d1f09ffdc0f6",
+      "name": "HTTP — Prix WTI (CL=F)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1712,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/BZ=F?interval=1d&range=5d",
+        "options": {}
+      },
+      "id": "9fe7e0cc-d42f-4202-b0ee-0ab121b4ee2f",
+      "name": "HTTP — Prix Brent (BZ=F)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1952,
+        1792
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6692fcbe-ddbc-41ab-aaad-ee4aab3dfa7d",
+      "name": "Fusion — Reuters",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -96,
+        2048
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6faa60ef-66e7-45e7-b0ab-6eba54c7b839",
+      "name": "Fusion — BBC + AJ",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        384,
+        2048
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "00c0973d-e053-41e4-a37b-ef54b390e670",
+      "name": "Fusion — OilPrice + Defense",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        864,
+        2048
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "d369ed96-eed1-4c49-892f-0a26c006a681",
+      "name": "Fusion — Dawn + MEE",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1344,
+        2048
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "b37339bf-fed3-462f-a518-2e25a2d5f653",
+      "name": "Fusion — WTI + Brent",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1824,
+        2048
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6e0674ff-3c6f-489a-a39e-d42d3df7a7ba",
+      "name": "Fusion — Reuters + BBC/AJ",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        144,
+        2304
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0c537ede-aef9-4523-b0fd-afad127db837",
+      "name": "Fusion — Oil/Def + Dawn/MEE",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1104,
+        2304
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1c4f4f39-16b8-4f0f-9bc7-30decaf7251f",
+      "name": "Fusion — Tous Articles RSS",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        624,
+        2560
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7dcbeb34-e82f-46e7-8255-899c1fcbb419",
+      "name": "Fusion Finale — Articles + Prix",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1232,
+        2832
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "id": "0505a97d-bea3-4444-9ced-f2e7e2656bb9",
+      "name": "⏳ Wait 10s (anti rate-limit)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        2960
+      ],
+      "webhookId": "4a22ea16-a12f-4362-9b1a-dec27763a523"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ─── SÉPARATION ARTICLES RSS / DONNÉES PRIX ───────────────────────────────\nconst allItems = $input.all();\nconst articles = allItems.filter(i => i.json.title && i.json.link).slice(0, 25);\nconst priceItems = allItems.filter(i => i.json.chart);\n\n// ─── EXTRACTION PRIX WTI ET BRENT ─────────────────────────────────────────\nlet wtiPrice = 'N/D', brentPrice = 'N/D', wtiChg = '0.00', brentChg = '0.00';\nfor (const p of priceItems) {\n  try {\n    const r = p.json.chart.result[0];\n    const sym = r.meta.symbol;\n    const cls = r.indicators.quote[0].close.filter(Boolean);\n    const last = cls[cls.length - 1];\n    const prev = cls[cls.length - 2] || last;\n    const chg = ((last - prev) / prev * 100).toFixed(2);\n    if (sym === 'CL=F') { wtiPrice = last.toFixed(2); wtiChg = chg; }\n    if (sym === 'BZ=F') { brentPrice = last.toFixed(2); brentChg = chg; }\n  } catch (e) {}\n}\n\n// ─── DATE DU RAPPORT ───────────────────────────────────────────────────────\nconst today = new Date().toLocaleDateString('fr-FR', {\n  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',\n  timeZone: 'Europe/Paris'\n});\n\n// ─── GROUPEMENT DES ARTICLES PAR SOURCE ───────────────────────────────────\nconst grouped = {};\nfor (const item of articles) {\n  let src = 'source';\n  try {\n    src = new URL(item.json.link).hostname\n      .replace('www.', '')\n      .replace('feeds.', '')\n      .split('.')[0];\n  } catch (e) { src = item.json.source || 'unknown'; }\n  if (!grouped[src]) grouped[src] = [];\n  grouped[src].push(item.json);\n}\n\n// ─── CONSTRUCTION DU TEXTE DES ARTICLES ───────────────────────────────────\nlet articlesText = '';\nfor (const [src, arts] of Object.entries(grouped)) {\n  articlesText += '[SOURCE: ' + src.toUpperCase() + ']\\n';\n  for (const a of arts.slice(0, 5)) {\n    articlesText += '• ' + (a.title || '') + '\\n';\n    const snippet = a.contentSnippet || a.summary || a.content || '';\n    if (snippet) articlesText += '  ' + snippet.substring(0, 150).replace(/\\s+/g, ' ') + '\\n';\n    articlesText += '\\n';\n  }\n  articlesText += '\\n';\n}\n\n// ─── INDICATEURS DE VARIATION ─────────────────────────────────────────────\nconst wtiSign  = parseFloat(wtiChg)   >= 0 ? '+' : '';\nconst brentSign = parseFloat(brentChg) >= 0 ? '+' : '';\n\n// ═══════════════════════════════════════════════════════════════════════════\n// SYSTEM PROMPT — GOLDMAN SACHS ANALYST PERSONA\n// ═══════════════════════════════════════════════════════════════════════════\nconst systemPrompt =\n  'Tu es un analyste senior, division Global Macro Research & Geopolitical Risk (GMRG). '\n  + 'Tu produis des rapports quotidiens de niveau institutionnel destinés à des investisseurs souverains, '\n  + 'des family offices et des décideurs stratégiques. '\n  + 'TON STYLE: analytique, factuel, précis, quantitatif. Probabilités chiffrées pour chaque scénario. '\n  + 'Ton neutre, professionnel, sans jugement de valeur. Indicateurs chiffrés quand disponibles. '\n  + 'Pas de généralités — que des analyses concrètes basées sur les données fournies. '\n  + 'CONTRAINTE ABSOLUE: Tu réponds UNIQUEMENT en HTML structuré prêt à être inséré dans un email. '\n  + 'N\\'utilise JAMAIS de balises html, head, body ou style. '\n  + 'Utilise uniquement: h2, h3, p, ul, li, strong, table, thead, tbody, tr, th, td, hr, br. '\n  + 'Commence directement par le contenu HTML sans aucun texte introductif ni backticks markdown.';\n\n// ═══════════════════════════════════════════════════════════════════════════\n// USER PROMPT — STRUCTURE GOLDMAN SACHS (8 sections)\n// ═══════════════════════════════════════════════════════════════════════════\nconst userPrompt =\n  'RAPPORT IRAN WAR — GLOBAL MACRO RESEARCH\\n'\n  + 'Date: ' + today.toUpperCase() + '\\n'\n  + 'Classification: GUERRE EN IRAN - RAPPORT SUR LES MARCHES ET SITUATION ECONOMQIUE MONDIALES\\n'\n  + '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\n'\n\n  + 'DONNÉES DE MARCHÉ EN TEMPS RÉEL:\\n'\n  + '• WTI Crude Oil (NYMEX CL=F): ' + wtiPrice + ' USD/baril (' + wtiSign + wtiChg + '% vs J-1)\\n'\n  + '• Brent Crude (ICE BZ=F):     ' + brentPrice + ' USD/baril (' + brentSign + brentChg + '% vs J-1)\\n'\n  + '• Spread Brent/WTI: ' + (parseFloat(brentPrice) - parseFloat(wtiPrice)).toFixed(2) + ' USD\\n\\n'\n\n  + '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n'\n  + 'FLUX INFORMATIONNELS DES DERNIÈRES 24H (25 articles max)\\n'\n  + 'Sources: Reuters, BBC, Al Jazeera, OilPrice.com, Defense News, Dawn, Middle East Eye\\n'\n  + '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\n'\n  + articlesText\n\n  + '═══════════════════════════════════════════════\\n'\n  + 'GÉNÈRE UN RAPPORT HTML AVEC CES 8 SECTIONS OBLIGATOIRES\\n'\n  + '═══════════════════════════════════════════════\\n\\n'\n\n  + 'SECTION 1 — <h2>SYNTHÈSE EXÉCUTIVE</h2>\\n'\n  + '5 bullet points des faits majeurs 24h. Indice Risque Géopolitique Global: X/10 justifié. Signal directionnel pétrole: HAUSSIER/BAISSIER/NEUTRE.\\n\\n'\n\n  + 'SECTION 2 — <h2>SITUATION OPÉRATIONNELLE IRAN</h2>\\n'\n  + 'Activités militaires 24h. Arsenal: missiles balistiques (portées), drones Shahed-136/131, capacités navales (mines, FIAC). Fronts actifs. Pertes estimées. Positionnement US CENTCOM, Israël.\\n\\n'\n\n  + 'SECTION 3 — <h2>MARCHÉS ÉNERGÉTIQUES</h2>\\n'\n  + 'Analyse technique WTI/Brent: supports/résistances, tendance. DÉTROIT D\\'ORMUZ: volume trafic (Mb/j), incidents, probabilité fermeture (%), impact offre mondiale si fermeture 30j. 5ème Flotte US: état alerte. OPEP+: pays affectés. GNL: flux Europe/Asie. Prévision prix pétrole 30j: fourchette USD/baril.\\n\\n'\n\n  + 'SECTION 4 — <h2>GÉOPOLITIQUE RÉGIONALE</h2>\\n'\n  + 'Proxies iraniens: Hezbollah, Houthis (frappes mer Rouge, BDTI), milices Irak/Syrie. Pays du Golfe: Aramco, ADNOC, Qatar LNG. Grandes puissances: USA (forces déployées, sanctions), Russie (armes livrées), Chine (importations pétrole iranien). Front israélien: opérations, Iron Dome/Arrow.\\n\\n'\n\n  + 'SECTION 5 — <h2>CONFLIT PAKISTAN-AFGHANISTAN</h2>\\n'\n  + 'TTP: frappes transfrontalières, victimes. CPEC: tronçons menacés, investissements à risque (Mrd USD). Gazoducs TAPI: impact approvisionnement. Flux réfugiés. Spillover vers Iran: frontière Sistan-Baloutchistan.\\n\\n'\n\n  + 'SECTION 6 — <h2>MARCHÉS FINANCIERS & FLUX DE CAPITAUX</h2>\\n'\n  + 'Devises: DXY, EUR/USD, USD/ILS, USD/SAR, USD/PKR. Actions: MSCI EM, Tadawul, TA-35. Valeurs refuge: XAU/USD (or), Treasuries 10Y, CHF. Matières premières: gaz naturel (TTF/Henry Hub). Indicateurs de peur: VIX, MOVE, CDS souverains Iran/Irak/Liban/Pakistan. Shipping: BDTI, assurances maritimes Golfe.\\n\\n'\n\n  + 'SECTION 7 — <h2>SCÉNARIOS PROSPECTIFS 30-60-90 JOURS</h2>\\n'\n  + 'Scénario Base (X%): description + WTI cible + hypothèses + indicateurs confirmation.\\n'\n  + 'Scénario Escalade Majeure (X%): déclencheur + WTI cible + MSCI EM impact + contagion.\\n'\n  + 'Scénario Désescalade (X%): médiateurs + WTI cible + timeline.\\n\\n'\n\n  + 'SECTION 8 — <h2>RECOMMANDATIONS STRATÉGIQUES</h2>\\n'\n  + 'Allocation tactique par classe actifs (surpondérer/sous-pondérer). Pétrole: entrée long, stop-loss, target 30j/90j. Or XAU: niveau accumulation. Hedging: instruments recommandés. Triggers 72h: 5 indicateurs avancés critiques. Tail risk 5%: scénario + impact maximal chiffré.';\n\nreturn [{\n  json: {\n    systemPrompt,\n    userPrompt,\n    today,\n    wtiPrice,\n    brentPrice,\n    wtiChg,\n    brentChg,\n    articleCount: articles.length\n  }\n}];"
+      },
+      "id": "beeaaa92-02b0-49e2-9ab1-c0b95c8d0a18",
+      "name": "Code — Compilation & Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        3088
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.mistral.ai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{\nJSON.stringify({\n  model: 'mistral-large-latest',\n  max_tokens: 10000,\n  temperature: 0.2,\n  safe_prompt: false,\n  messages: [\n    {\n      role: 'system',\n      content: $json.systemPrompt\n    },\n    {\n      role: 'user',\n      content: $json.userPrompt\n    }\n  ]\n})\n}}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "8d710e24-8c97-49b9-bb2a-5411f09703b3",
+      "name": "🤖 Mistral Large — Génération Rapport",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1232,
+        3344
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "nild8A2OTB0bvbSB",
+          "name": "MISTRAL API"
+        }
+      },
+      "notes": "⚙️ CREDENTIAL À CRÉER: Settings → Credentials → New → 'Header Auth'\nName: Authorization\nValue: Bearer VOTRE_CLE_MISTRAL_ICI\n\nClé disponible sur: console.mistral.ai → API Keys"
+    },
+    {
+      "parameters": {
+        "jsCode": "const mistralResponse = $input.first().json;\nconst compileData = $('Code — Compilation & Prompt').first().json;\n\nconst today        = compileData.today        || new Date().toLocaleDateString('fr-FR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });\nconst wtiPrice     = compileData.wtiPrice     || 'N/D';\nconst brentPrice   = compileData.brentPrice   || 'N/D';\nconst wtiChg       = compileData.wtiChg       || '0.00';\nconst brentChg     = compileData.brentChg     || '0.00';\nconst articleCount = compileData.articleCount || 0;\n\n// ── NOUVELLES VARIABLES À AJOUTER ──────────────────────\nconst goldPrice  = compileData.goldPrice  || 'N/D';\nconst goldChg    = compileData.goldChg    || '0.00';\nconst ngPrice    = compileData.ngPrice    || 'N/D';\nconst ngChg      = compileData.ngChg      || '0.00';\nconst vixPrice   = compileData.vixPrice   || 'N/D';\nconst vixChg     = compileData.vixChg     || '0.00';\nconst eurusd     = compileData.eurusd     || 'N/D';\nconst eurusdChg  = compileData.eurusdChg  || '0.00';\n\n\nlet rawContent = '<p style=\"color:#c0392b;font-family:Arial,sans-serif;padding:20px;\">⚠️ Erreur: impossible de générer le rapport.</p>';\n\ntry {\n  if (mistralResponse.choices && mistralResponse.choices[0] && mistralResponse.choices[0].message) {\n    let raw = mistralResponse.choices[0].message.content || '';\n    raw = raw.replace(/^```html\\s*/i, '').replace(/^```\\s*/i, '').replace(/\\s*```$/i, '').trim();\n    rawContent = raw;\n  } else if (mistralResponse.error) {\n    rawContent = '<p style=\"color:#c0392b;\">Erreur API: ' + (mistralResponse.error.message || JSON.stringify(mistralResponse.error)) + '</p>';\n  }\n} catch(e) {\n  rawContent = '<p style=\"color:#c0392b;\">Erreur parsing: ' + e.message + '</p>';\n}\n\nconst wtiNum    = parseFloat(wtiChg);\nconst brentNum  = parseFloat(brentChg);\nconst spreadNum = parseFloat(brentPrice) - parseFloat(wtiPrice);\n\nconst wtiColor   = wtiNum   >= 0 ? '#27ae60' : '#c0392b';\nconst brentColor = brentNum >= 0 ? '#27ae60' : '#c0392b';\nconst wtiArrow   = wtiNum   >= 0 ? '▲' : '▼';\nconst brentArrow = brentNum >= 0 ? '▲' : '▼';\nconst wtiSign    = wtiNum   >= 0 ? '+' : '';\nconst brentSign  = brentNum >= 0 ? '+' : '';\nconst dateRef    = new Date().toISOString().split('T')[0];\nconst rapportNum = dateRef.replace(/-/g, '');\n\nconst images = {\n  'SYNTH':  'https://loremflickr.com/860/220/iran,war,military?random=' + Date.now(),\n  'SITUA':  'https://loremflickr.com/860/220/iran,army,missile?random=' + (Date.now()+1),\n  'MARCH':  'https://loremflickr.com/860/220/oil,tanker,gulf?random=' + (Date.now()+2),\n  'GÉOPO':  'https://loremflickr.com/860/220/middleeast,geopolitics?random=' + (Date.now()+3),\n  'PAKIS':  'https://loremflickr.com/860/220/pakistan,afghanistan,border?random=' + (Date.now()+4),\n  'FINAN':  'https://loremflickr.com/860/220/finance,market,trading?random=' + (Date.now()+5),\n  'SCENA':  'https://loremflickr.com/860/220/strategy,forecast,risk?random=' + (Date.now()+6),\n  'RECOM':  'https://loremflickr.com/860/220/investment,portfolio,gold?random=' + (Date.now()+7)\n};\n\nfunction injectImages(html) {\n  let result = html;\n  for (const [key, src] of Object.entries(images)) {\n    const regex = new RegExp('(<h2[^>]*>[^<]*' + key + '[^<]*<\\\\/h2>)', 'i');\n    const imgBlock =\n      '<div style=\"margin:12px 0 20px 0;border:1px solid #c4bba8;overflow:hidden;border-radius:3px;\">'\n      + '<img src=\"' + src + '\" style=\"width:100%;height:200px;object-fit:cover;display:block;\" onerror=\"this.style.display=\\'none\\'\" />'\n      + '</div>';\n    result = result.replace(regex, '$1' + imgBlock);\n  }\n  return result;\n}\n\nconst reportContent = injectImages(rawContent);\n\nconst htmlEmail = `<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>GS Global Macro Research — ${today}</title>\n  <style>\n    * { box-sizing: border-box; margin: 0; padding: 0; }\n    body { font-family: Georgia, 'Times New Roman', serif; background: #ece9e0; color: #1a1a1a; padding: 16px; }\n    .container { max-width: 900px; margin: 0 auto; background: #ffffff; border: 1px solid #c4bba8; box-shadow: 0 4px 24px rgba(0,0,0,0.15); }\n    .gs-header { background: linear-gradient(135deg, #0d1e3a 0%, #1a3460 100%); padding: 28px 40px; border-bottom: 4px solid #b8962e; }\n    .gs-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }\n    .gs-brand { color: #b8962e; font-size: 24px; font-weight: 900; letter-spacing: 4px; font-family: Arial, sans-serif; }\n    .gs-classif { background: #b8962e; color: #0d1e3a; font-size: 10px; font-weight: 900; padding: 5px 12px; letter-spacing: 1.5px; border-radius: 2px; font-family: Arial, sans-serif; white-space: nowrap; }\n    .gs-title { color: #ffffff; font-size: 17px; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.4px; }\n    .gs-subtitle { color: #7aaccc; font-size: 12px; letter-spacing: 0.3px; }\n    .gs-datebar { background: #162d52; padding: 9px 40px; color: #b8962e; font-size: 11.5px; font-weight: 700; letter-spacing: 0.8px; border-bottom: 1px solid rgba(184,150,46,0.35); font-family: Arial, sans-serif; }\n    .gs-sources { background: #0f1e38; padding: 6px 40px; font-size: 10px; color: #5a7a9a; letter-spacing: 0.4px; font-family: Arial, sans-serif; border-bottom: 1px solid #1e3458; }\n    .gs-market { display: flex; background: #f5f2eb; border-bottom: 2px solid #c4bba8; }\n    .gs-tile { flex: 1; padding: 16px 18px; text-align: center; border-right: 1px solid #c4bba8; }\n    .gs-tile:last-child { border-right: none; }\n    .gs-tile-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1.2px; font-family: Arial, sans-serif; margin-bottom: 5px; }\n    .gs-tile-price { font-size: 22px; font-weight: 700; color: #0d1e3a; font-family: Arial, sans-serif; }\n    .gs-tile-change { font-size: 12px; font-weight: 700; font-family: Arial, sans-serif; margin-top: 3px; }\n    .gs-tile-unit { font-size: 10px; color: #999; font-family: Arial, sans-serif; margin-top: 2px; }\n    .gs-body { padding: 30px 40px; }\n    .gs-body h2 { color: #0d1e3a; font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; border-left: 5px solid #b8962e; padding: 7px 0 7px 14px; margin: 28px 0 0 0; font-family: Arial, sans-serif; background: linear-gradient(90deg, rgba(184,150,46,0.07) 0%, transparent 100%); }\n    .gs-body h3 { color: #1a3460; font-size: 11.5px; font-weight: 700; margin: 14px 0 5px 0; letter-spacing: 0.5px; font-family: Arial, sans-serif; text-transform: uppercase; }\n    .gs-body p { font-size: 13.5px; line-height: 1.85; color: #2a2a2a; margin-bottom: 10px; }\n    .gs-body ul { padding-left: 22px; margin-bottom: 12px; }\n    .gs-body li { font-size: 13.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 5px; }\n    .gs-body strong { color: #0d1e3a; }\n    .gs-body table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 12.5px; }\n    .gs-body th { background: #0d1e3a; color: #b8962e; padding: 8px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.5px; }\n    .gs-body td { padding: 7px 12px; border-bottom: 1px solid #e8e4db; color: #333; }\n    .gs-body tr:nth-child(even) td { background: #f8f6f0; }\n    .gs-body hr { border: none; border-top: 1px solid #ddd7c8; margin: 18px 0; }\n    .gs-footer { background: #0d1e3a; padding: 22px 40px; text-align: center; border-top: 3px solid #b8962e; }\n    .gs-footer p { color: #5a7a9a; font-size: 10px; line-height: 2.1; font-family: Arial, sans-serif; }\n    .gs-footer strong { color: #b8962e; }\n  </style>\n</head>\n<body>\n<div class=\"container\">\n\n  <div class=\"gs-header\">\n    <div class=\"gs-header-top\">\n      <div class=\"gs-brand\">IRANIAN WAR REPORT</div>\n      <div class=\"gs-classif\">⚠&nbsp; RAPPORT ÉCONOMIQUE STRATÉGIQUE</div>\n    </div>\n    <div class=\"gs-title\">Global Macro Research &amp; Geopolitical Risk Division</div>\n    <div class=\"gs-subtitle\">Rapport Quotidien — Conflit Iranien &amp; Retombées Économiques Mondiales | Pakistan-Afghanistan</div>\n  </div>\n\n  <div class=\"gs-datebar\">\n    📅&nbsp; ${today.toUpperCase()}&nbsp;&nbsp;|&nbsp;&nbsp;MISE À JOUR: 06H00 CET&nbsp;&nbsp;|&nbsp;&nbsp;RÉFERENCE: GMRG-IRAN-${rapportNum}\n  </div>\n\n  <div class=\"gs-sources\">\n    📡 Sources: Reuters · BBC · Al Jazeera · OilPrice.com · Defense News · Dawn · Middle East Eye · Yahoo Finance — <strong style=\"color:#7aaccc;\">${articleCount} articles analysés</strong>\n  </div>\n\n  <div class=\"gs-market\">\n    <div class=\"gs-tile\">\n      <div class=\"gs-tile-label\">WTI Crude Oil</div>\n      <div class=\"gs-tile-price\">$${wtiPrice}</div>\n      <div class=\"gs-tile-change\" style=\"color:${wtiColor}\">${wtiArrow}&nbsp;${wtiSign}${wtiChg}%</div>\n      <div class=\"gs-tile-unit\">USD/baril · NYMEX CL=F</div>\n    </div>\n    <div class=\"gs-tile\">\n      <div class=\"gs-tile-label\">Brent Crude</div>\n      <div class=\"gs-tile-price\">$${brentPrice}</div>\n      <div class=\"gs-tile-change\" style=\"color:${brentColor}\">${brentArrow}&nbsp;${brentSign}${brentChg}%</div>\n      <div class=\"gs-tile-unit\">USD/baril · ICE BZ=F</div>\n    </div>\n    <div class=\"gs-tile\">\n      <div class=\"gs-tile-label\">Spread Brent/WTI</div>\n      <div class=\"gs-tile-price\" style=\"font-size:19px;\">$${isNaN(spreadNum) ? 'N/D' : Math.abs(spreadNum).toFixed(2)}</div>\n      <div class=\"gs-tile-change\" style=\"color:#888;\">Brent Premium</div>\n      <div class=\"gs-tile-unit\">USD/baril</div>\n    </div>\n  </div>\n\n  <div class=\"gs-body\">\n    ${reportContent}\n  </div>\n\n  <div class=\"gs-footer\">\n    <p>\n      <strong>Global Macro Research &amp ; Geopolitical Risk Division - IRAN WAR</strong><br>\n      Ce rapport est fourni à titre informatif uniquement et ne constitue pas un conseil en investissement,\n      une offre ou une sollicitation d'achat ou de vente de tout instrument financier.<br>\n      Les performances passées ne préjugent pas des performances futures.\n      Les projections sont basées sur des modèles internes sujets à révision sans préavis.<br>\n    </p>\n  </div>\n\n</div>\n</body>\n</html>`;\n\nconst subject =\n  '🔴 IRANIAN WAR REPORT — '\n  + new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase()\n  + ' | WTI: $' + wtiPrice\n  + ' (' + wtiSign + wtiChg + '%)'\n  + ' | Brent: $' + brentPrice\n  + ' (' + brentSign + brentChg + '%)'\n  + ' | Ormuz Risk Alert';\n\nreturn [{\n  json: {\n    htmlBody: htmlEmail,\n    subject:  subject,\n    to:       'REMPLACER@VOTREDOMAINE.COM'\n  }\n}];"
+      },
+      "id": "7f4482cc-f791-4a64-927d-51afa28123c3",
+      "name": "Code — Formatage HTML Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        3600
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "lucassimatovic@gmail.com",
+        "subject": "=={{ $json.subject }}",
+        "message": "=={{ $json.htmlBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        3600
+      ],
+      "id": "b4e8d686-c814-43a8-8390-95ea04b4fd8b",
+      "name": "Send a message",
+      "webhookId": "df488a1c-303b-4c77-b3b9-5045d7319909",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "miuoIf38NelRqHPT",
+          "name": "Gmail account 7"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "⏰ Déclencheur Quotidien 6h00": {
+      "main": [
+        [
+          {
+            "node": "RSS — Reuters Monde",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — Reuters Business",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — BBC Moyen-Orient",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — Al Jazeera",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — OilPrice.com",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — Defense News",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — Dawn Pakistan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS — Middle East Eye",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP — Prix WTI (CL=F)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP — Prix Brent (BZ=F)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS — Reuters Monde": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Reuters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS — Reuters Business": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Reuters",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "RSS — BBC Moyen-Orient": {
+      "main": [
+        [
+          {
+            "node": "Fusion — BBC + AJ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS — Al Jazeera": {
+      "main": [
+        [
+          {
+            "node": "Fusion — BBC + AJ",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "RSS — OilPrice.com": {
+      "main": [
+        [
+          {
+            "node": "Fusion — OilPrice + Defense",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS — Defense News": {
+      "main": [
+        [
+          {
+            "node": "Fusion — OilPrice + Defense",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "RSS — Dawn Pakistan": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Dawn + MEE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS — Middle East Eye": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Dawn + MEE",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP — Prix WTI (CL=F)": {
+      "main": [
+        [
+          {
+            "node": "Fusion — WTI + Brent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP — Prix Brent (BZ=F)": {
+      "main": [
+        [
+          {
+            "node": "Fusion — WTI + Brent",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fusion — Reuters": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Reuters + BBC/AJ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fusion — BBC + AJ": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Reuters + BBC/AJ",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fusion — OilPrice + Defense": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Oil/Def + Dawn/MEE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fusion — Dawn + MEE": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Oil/Def + Dawn/MEE",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fusion — WTI + Brent": {
+      "main": [
+        [
+          {
+            "node": "Fusion Finale — Articles + Prix",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fusion — Reuters + BBC/AJ": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Tous Articles RSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fusion — Oil/Def + Dawn/MEE": {
+      "main": [
+        [
+          {
+            "node": "Fusion — Tous Articles RSS",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fusion — Tous Articles RSS": {
+      "main": [
+        [
+          {
+            "node": "Fusion Finale — Articles + Prix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fusion Finale — Articles + Prix": {
+      "main": [
+        [
+          {
+            "node": "⏳ Wait 10s (anti rate-limit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏳ Wait 10s (anti rate-limit)": {
+      "main": [
+        [
+          {
+            "node": "Code — Compilation & Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code — Compilation & Prompt": {
+      "main": [
+        [
+          {
+            "node": "🤖 Mistral Large — Génération Rapport",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤖 Mistral Large — Génération Rapport": {
+      "main": [
+        [
+          {
+            "node": "Code — Formatage HTML Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code — Formatage HTML Email": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e4be78d2ceba5c58303e2a203656240aed7b1036313061af389c6eabaf166742"
+  }
+}
