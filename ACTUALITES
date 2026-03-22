@@ -1,0 +1,538 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -944,
+        -32
+      ],
+      "id": "6161733b-899f-4ab0-a509-6dc887bcb564",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=Chine+économie+innovation+semiconducteurs+Brics&hl=fr&gl=FR&ceid=FR:fr",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        400
+      ],
+      "id": "121e4c9e-e43b-4382-bf93-a8b207d6d66b",
+      "name": "RSS ECONOMIE/TECH"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        128,
+        464
+      ],
+      "id": "5d2e653a-5750-401f-8d04-b86a3ddf5c42",
+      "name": "CHINE/ASIE1"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=USA+Federal+Reserve+inflation+Wall+Street+Nasdaq&hl=fr&gl=FR&ceid=FR:fr",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        656
+      ],
+      "id": "1f120463-77bb-47a5-be0d-90dff6b51ac8",
+      "name": "MACRO/FINANCE"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=USA+AI+innovation+Nvidia+OpenAI+regulation&hl=fr&gl=FR&ceid=FR:fr",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        784
+      ],
+      "id": "6338d072-5fb2-4bf3-b00c-25d4ff50ca77",
+      "name": "IA"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=France+Digitale+French+Tech+innovation+IA&hl=fr&gl=FR&ceid=FR:fr",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        1040
+      ],
+      "id": "904472f0-cc8a-4a9b-979b-5bdc6ec58ac4",
+      "name": "INNOVATION/STARTUP"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=France+économie+réindustrialisation+CAC40+croissance&hl=fr&gl=FR&ceid=FR:fr",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        912
+      ],
+      "id": "3f1cb750-c4ff-4375-80d5-7ef938b1ec01",
+      "name": "ECONOMIE/INDUSTRIE"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        128,
+        704
+      ],
+      "id": "8204e8d3-10f8-43ab-92fe-fedd931a990d",
+      "name": "USA"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        128,
+        944
+      ],
+      "id": "361a606c-3bbb-4e75-a936-959be5374005",
+      "name": "FRANCE"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        448,
+        688
+      ],
+      "id": "49ea2f96-7366-47b4-b8de-574b435667bd",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nlet newsText = \"RAPPORT DE VEILLE MULTIPOLAIRE :\\n\\n\";\n\nfor (const item of items) {\n  // On récupère l'étiquette qu'on a créée à l'étape précédente\n  const blocNom = item.json.bloc || \"International\"; \n  const titre = item.json.title || \"Sans titre\";\n  const resume = item.json.contentSnippet || item.json.content || \"Pas de résumé disponible\";\n\n  newsText += `[ZONE: ${blocNom.toUpperCase()}]\\n`;\n  newsText += `TITRE: ${titre}\\n`;\n  newsText += `ANALYSE BRUTE: ${resume.substring(0, 300)}...\\n`;\n  newsText += `-------------------------------------------\\n\\n`;\n}\n\nreturn [{ json: { newsData: newsText } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        704
+      ],
+      "id": "8d676965-94cd-4d58-923d-8d6a2019aee9",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "65fe1806-2ec5-465e-8aef-7be4784bcba3",
+              "name": "bloc",
+              "value": "asie",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        544
+      ],
+      "id": "dd47161e-4663-48e9-8ad1-ce6472e97d82",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50ad3943-057d-4269-8911-2bba0c39a56e",
+              "name": "bloc",
+              "value": "usa",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        704
+      ],
+      "id": "ab6c93fc-bfbd-4dd5-b966-fbd333f6f34c",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "665a78a6-257e-46d5-b398-4ecf9721e345",
+              "name": "bloc",
+              "value": "france",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        864
+      ],
+      "id": "43cb334e-aa1a-46b5-9d72-2ded9e4d16dd",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n{\n  \"model\": \"llama-3.3-70b-versatile\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Tu es un Expert en Intelligence Économique et Stratégique (Master 2). Ta mission est de produire un rapport de renseignement 'Deep-Dive' pour une newsletter d'élite. Ton style est sophistiqué, percutant, et dévoile les 'signaux faibles' que les médias traditionnels ignorent.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"### RÔLE\\nAgis comme un Chef de la Stratégie Économique d'un cabinet de conseil souverain. Tu excels à vulgariser des mécanismes complexes (théorie des jeux, cycles de Kondratiev, asymétries d'information) sans perdre en précision technique.\\n\\n### TÂCHE PRINCIPALE\\nRédige un rapport stratégique exhaustif nommé 'L'ÉCHIQUIER MONDIAL'. Tu dois produire une analyse critique pour chaque section, en évitant le résumé descriptif au profit de l'analyse prospective.\\n\\n### CONTEXTE\\nVoici les données brutes collectées par nos capteurs (France, USA, Asie) : \" + $json.newsData + \"\\n\\n### OBJECTIF\\n1. Éclairer le 'citoyen lambda' en lui montrant les rouages invisibles derrière les événements.\\n2. Comparer systématiquement les blocs FRANCE (Souveraineté), USA (Hégémonie) et ASIE (Expansion).\\n3. Extraire les enjeux de pouvoir, les dépendances stratégiques et les répercussions à 6 mois.\\n\\n### DIRECTIVES DE RÉDACTION (STRICTES)\\n- **Longueur :** Développe au maximum chaque point. Ne résume pas. Si une information technique est citée, explique son mécanisme (ex: pourquoi une hausse des taux aux USA impacte le paysan en France).\\n- **Structure :** Divise en 4 Sections : 'Finance & Macro-Souveraineté', 'Géopolitique & Énergie', 'Infrastructures IA & Guerre du Cloud', 'Frontières de la Science'.\\n- **Ton :** Intrigant, percutant, parfois critique envers les politiques actuelles.\\n- **Interdiction :** Pas de Markdown (pas de # ou de **). Utilise uniquement du HTML pur.\\n\\n### FORMAT DE SORTIE (HTML)\\n- Utilise des <div> avec un padding de 30px.\\n- Titres <h2> en bleu marine (#1a237e) et <h3> en gris acier (#455a64).\\n- Polices : Serif (type Georgia) pour le corps du texte pour un aspect 'Paper'.\\n- Images : Insère <img src='https://loremflickr.com/800/300/[KEYWORD]' style='width:100%; border-radius:12px;'> au début de chaque grande section.\\n\\n### CONDITIONS D'ARRÊT\\nArrête seulement lorsque tu as exploré chaque bloc géographique pour chaque section, fourni une conclusion prospective par section, et une 'Note de Synthèse Stratégique' finale.\"\n    }\n  ],\n  \"temperature\": 0.4,\n  \"max_tokens\": 4096\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        768,
+        480
+      ],
+      "id": "30c06c4a-1c96-4dfa-b5bf-dd2362e8abc5",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ea95f130-3581-4ec2-b1f2-8ec37c247870",
+              "name": "rapport_final",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        960,
+        480
+      ],
+      "id": "610fe8b3-0595-44ea-9b00-e6458a7a133c",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "sendTo": "lucassimatovic@gmail.com",
+        "subject": "=Rapport Stratégique Tri-Blocs - {{ $now.format('dd/MM/yyyy') }}",
+        "message": "={{ $json.rapport_final || \"Erreur : Le rapport n'a pas pu être généré.\" }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        848,
+        720
+      ],
+      "id": "3b977d5d-4500-46ac-8d6e-c9d5b8dcfa5d",
+      "name": "Send a message",
+      "webhookId": "1f0115f8-9c98-4ef3-bed7-1e2dc2fd1fdf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "miuoIf38NelRqHPT",
+          "name": "Gmail account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=China+USA+trade+war+ASEAN+innovation&hl=en-US&gl=US&ceid=US:en",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        528
+      ],
+      "id": "df1ac6f6-66aa-4ea8-81c1-8419f0093d90",
+      "name": "RSS INNOVATION"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS ECONOMIE/TECH",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS INNOVATION",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "MACRO/FINANCE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "IA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ECONOMIE/INDUSTRIE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "INNOVATION/STARTUP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS ECONOMIE/TECH": {
+      "main": [
+        [
+          {
+            "node": "CHINE/ASIE1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "CHINE/ASIE1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MACRO/FINANCE": {
+      "main": [
+        [
+          {
+            "node": "USA",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "IA": {
+      "main": [
+        [
+          {
+            "node": "USA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INNOVATION/STARTUP": {
+      "main": [
+        [
+          {
+            "node": "FRANCE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ECONOMIE/INDUSTRIE": {
+      "main": [
+        [
+          {
+            "node": "FRANCE",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "USA": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FRANCE": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "RSS INNOVATION": {
+      "main": [
+        [
+          {
+            "node": "CHINE/ASIE1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e4be78d2ceba5c58303e2a203656240aed7b1036313061af389c6eabaf166742"
+  }
+}
