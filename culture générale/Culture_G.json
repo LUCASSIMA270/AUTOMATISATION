@@ -9,7 +9,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer VySk8HlLe60DsLvhijrgs2Pj7G6Ep45j"
+              "value": "Bearer clé API MISTRAL"
             },
             {
               "name": "Content-type",

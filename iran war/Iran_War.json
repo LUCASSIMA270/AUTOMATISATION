@@ -5,8 +5,7 @@
         "rule": {
           "interval": [
             {
-              "field": "cronExpression",
-              "expression": "0 5 * * 1-5"
+              "triggerAtHour": 10
             }
           ]
         }
@@ -299,17 +298,13 @@
             {
               "name": "Content-Type",
               "value": "application/json"
-            },
-            {
-              "name": "Accept",
-              "value": "application/json"
             }
           ]
         },
         "sendBody": true,
         "contentType": "raw",
         "rawContentType": "application/json",
-        "body": "={{\nJSON.stringify({\n  model: 'mistral-large-latest',\n  max_tokens: 10000,\n  temperature: 0.2,\n  safe_prompt: false,\n  messages: [\n    {\n      role: 'system',\n      content: $json.systemPrompt\n    },\n    {\n      role: 'user',\n      content: $json.userPrompt\n    }\n  ]\n})\n}}",
+        "body": "={{\nJSON.stringify({\n  model: 'mistral-large-latest',\n  max_tokens: 8000,\n  temperature: 0.2,\n  safe_prompt: false,\n  messages: [\n    {\n      role: 'system',\n      content: $json.systemPrompt\n    },\n    {\n      role: 'user',\n      content: $json.userPrompt\n    }\n  ]\n})\n}}",
         "options": {
           "timeout": 120000
         }
@@ -345,7 +340,7 @@
     },
     {
       "parameters": {
-        "sendTo": "lucassimatovic@gmail.com",
+        "sendTo": "lucassimatovic@gmail.com, simatovicyves@gmail.com",
         "subject": "=={{ $json.subject }}",
         "message": "=={{ $json.htmlBody }}",
         "options": {}

@@ -226,7 +226,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer clé GROQ"
             },
             {
               "name": "Content-type",
